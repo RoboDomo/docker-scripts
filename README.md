@@ -3,7 +3,8 @@
 This directory contains some handy shell scripts to start docker containers on
 your home automation server.
 
-For my server, I chose this barebones PC:
+For my server, I chose this barebones PC (Gigabyte Brix):
+
 https://www.amazon.com/gp/product/B00VBNSO8U/ref=oh_aui_search_detailpage?ie=UTF8&psc=1
 
 It cost about 2x what a Raspberry Pi with case and power supply and other needed
