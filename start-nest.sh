@@ -8,6 +8,9 @@ docker stop $SERVICE
 echo "removing old $SERVICE"
 docker rm $SERVICE
 
+echo "pulling $SERVICE"
+docker pull robodomo/$SERVICE
+
 echo "starting new $SERVICE"
 docker rm $SERVICE
 docker run \

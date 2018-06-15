@@ -8,6 +8,9 @@ docker stop $SERVICE
 echo "removing old $SERVICE"
 docker rm $SERVICE
 
+echo "pulling $SERVICE"
+docker pull matteocollina/$SERVICE
+
 docker run \
   --name $SERVICE \
   -d \
