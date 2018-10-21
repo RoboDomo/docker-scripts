@@ -1,4 +1,14 @@
-#!/bin/bash
+!/bin/bash
 
-docker pull matteocolins/mosca
-docker run -d --restart always -p 1883:1883 -p 80:80 -v /var/db/mosca:/db matteocollina/mosca
+./start-mongodb.sh
+./start-mqtt.sh
+./start-weather.sh
+./start-tvguide.sh
+./start-tivo.sh
+./start-denon.sh
+./start-harmony.sh
+./start-smartthings.sh
+./start-bravia.sh
+./start-lgtv.sh
+./start-nest.sh
+./start-macros.sh
