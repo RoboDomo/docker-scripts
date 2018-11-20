@@ -4,6 +4,7 @@
 ./start-mqtt.sh
 ./start-weather.sh
 ./start-tvguide.sh
+./start-autelis.sh
 ./start-tivo.sh
 ./start-denon.sh
 ./start-harmony.sh
