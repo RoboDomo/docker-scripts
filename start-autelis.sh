@@ -8,7 +8,7 @@ echo "removing $SERVICE"
 docker rm $SERVICE
 
 echo "pulling RoboDomo/$SERVICE"
-docker pull Robodomo/$SERVICE
+docker pull robodomo/$SERVICE
 
 docker run \
     -d \
