@@ -9,6 +9,7 @@ docker stop harmony-microservice
 docker stop mqtt-bridge
 docker stop bravia-microservice
 docker stop lgtv-microservice
+docker stop appletv-microservice
 docker stop nest-microservice
 docker stop macro-microservice
 

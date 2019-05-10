@@ -11,5 +11,6 @@
 ./start-smartthings.sh
 ./start-bravia.sh
 ./start-lgtv.sh
+./start-appletv.sh
 ./start-nest.sh
 ./start-macros.sh
