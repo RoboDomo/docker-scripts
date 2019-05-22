@@ -13,6 +13,7 @@ docker pull robodomo/$SERVICE
 echo "starting new $SERVICE"
 docker run \
     -d \
+    -e TIVO_HOSTS="$TIVO_HOSTS" \
     --restart always \
     --name $SERVICE \
     robodomo/$SERVICE
