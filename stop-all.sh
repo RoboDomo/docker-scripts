@@ -12,6 +12,7 @@ docker stop lgtv-microservice
 docker stop appletv-microservice
 docker stop nest-microservice
 docker stop macro-microservice
+docker stop triggers-microservice
 
 docker stop mosca
 docker stop mongodb

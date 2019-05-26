@@ -14,3 +14,4 @@
 ./start-appletv.sh
 ./start-nest.sh
 ./start-macros.sh
+./start-triggers.sh
