@@ -1,0 +1,21 @@
+version: '3'
+services:
+  db:
+    image: 'mongo:3.4'
+    ports:
+      - '27017:27017'
+    volumes:
+      - '~/data:/data/db'
+  mqtt:
+    image: 'matteocollina/mosca'
+    depends_on:
+      - db
+    ports:
+      - '1883'
+      - '3030:3000'
+      - '9000'
+      - '3080:80'
+    links:
+      - db
+  weather-microservice:
+    image: 'robodomo/weather-microservice'
