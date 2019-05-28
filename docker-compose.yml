@@ -1,13 +1,15 @@
-version: '3'
+version: '3.7'
 services:
   db:
     image: 'mongo:3.4'
+    restart: always
     ports:
       - '27017:27017'
     volumes:
       - '~/data:/data/db'
-  mqtt:
+  mqtt-service:
     image: 'matteocollina/mosca'
+    restart: always
     depends_on:
       - db
     ports:
@@ -15,7 +17,19 @@ services:
       - '3030:3000'
       - '9000'
       - '3080:80'
-    links:
-      - db
   weather-microservice:
     image: 'robodomo/weather-microservice'
+    restart: always
+  appletv-microservice:
+    image: 'robodomo/appletv-microservice'
+    restart: always
+    depends_on:
+      - mqtt-service
+    environment:
+      - MQTT_HOST=mqtt://mqtt-service
+networks:
+  default:
+    name: 'robodomo'
+    ipam:
+      config:
+        - subnet: 172.28.0.0/16
