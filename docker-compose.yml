@@ -1,15 +1,31 @@
+# Environmental variables:
+#   NEST_AUTH - Nest auth code
+#   BRAVIA_HOSTS - Hostnames or IP addresses of Bravia devices
+#   DENON_HOSTS - Hostnames or IP addresses of Denon devices
+#   LGTV_HOSTS - LGTV hosts
+#   TVGUIDE_USERNAME - TV Guide username
+#   TVGUIDE_PASSWORD - TV Guide password
+#   TVGUIDE_IDS - TV Guide IDs
+#   TIVO_HOSTS - Hostnames of Tivo devices
+
+x-defaults: &defaults
+  restart: always
+  volumes:
+    - ./config:/config:ro
+
 version: '3.7'
 services:
   db:
+    <<: *defaults
     image: 'mongo:3.4'
-    restart: always
     ports:
       - '27017:27017'
     volumes:
       - '~/data:/data/db'
-  mqtt-service:
+
+  mqtt:
+    <<: *defaults
     image: 'matteocollina/mosca'
-    restart: always
     depends_on:
       - db
     ports:
@@ -17,19 +33,88 @@ services:
       - '3030:3000'
       - '9000'
       - '3080:80'
-  weather-microservice:
+
+  weather:
+    <<: *defaults
     image: 'robodomo/weather-microservice'
-    restart: always
-  appletv-microservice:
+
+  appletv:
+    <<: *defaults
     image: 'robodomo/appletv-microservice'
-    restart: always
     depends_on:
-      - mqtt-service
+      - mqtt
     environment:
-      - MQTT_HOST=mqtt://mqtt-service
+      - MQTT_HOST=mqtt://mqtt
+
+  smartthings:
+    <<: *defaults
+    image: 'stjohnjohnson/smartthings-mqtt-bridge'
+    ports:
+      - '8080'
+
+  macros:
+    <<: *defaults
+    image: 'robodomo/macro-microservice'
+
+  triggers:
+    <<: *defaults
+    image: 'robodomo/triggers-microservice'
+    environment:
+      - MQTT_HOST=mqtt://mqtt
+      - TIMEOUT=600000
+
+  nest:
+    <<: *defaults
+    image: 'robodomo/nest-microservice'
+    environment:
+      - NEST_AUTH=${NEST_AUTH}
+
+  autelis:
+    <<: *defaults
+    image: 'robodomo/autelis-microservice'
+
+  bravia:
+    <<: *defaults
+    image: 'robodomo/bravia-microservice'
+    environment:
+      - BRAVIA_HOSTS=${BRAVIA_HOSTS}
+      - MQTT_HOST=mqtt://mqtt
+
+  denon:
+    <<: *defaults
+    image: 'robodomo/denon-microservice'
+    environment:
+      - DENON_HOSTS=${DENON_HOSTS}
+      - MQTT_HOST=mqtt://mqtt
+
+  harmony:
+    <<: *defaults
+    image: 'robodomo/harmony-microservice'
+
+  lgtv:
+    <<: *defaults
+    image: 'robodomo/lgtv-microservice'
+    environment:
+      - LGTV_HOSTS=${LGTV_HOSTS}
+      - MQTT_HOST=mqtt://mqtt
+
+  tivo:
+    <<: *defaults
+    image: 'robodomo/tivo-microservice'
+    environment:
+      - TIVO_HOSTS=${TIVO_HOSTS}
+
+  tvguide:
+    <<: *defaults
+    image: 'robodomo/tvguide-microservice'
+    environment:
+      - TVGUIDE_USERNAME=${TVGUIDE_USERNAME}
+      - TVGUIDE_PASSWORD=${TVGUIDE_PASSWORD}
+      - TVGUIDE_IDS=${TVGUIDE_IDS}
+
 networks:
   default:
-    name: 'robodomo'
+    name: robodomo
     ipam:
       config:
         - subnet: 172.28.0.0/16
