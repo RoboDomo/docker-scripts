@@ -13,6 +13,7 @@ docker pull robodomo/$SERVICE
 echo "starting new $SERVICE"
 docker run \
     -d \
+    -e WEATHER_LOCATIONS="92211,92109,92203" \
     --restart always \
     --name $SERVICE \
     robodomo/$SERVICE
