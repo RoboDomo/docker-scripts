@@ -16,7 +16,7 @@ docker run \
     --net=host \
     --restart always \
     --name $SERVICE \
-    -e LGTV_HOSTS="olede6p;78:5d:c8:e6:3f:ef" \
-    -e MQTT_HOST=mqtt://ha \
+    -e LGTV_HOSTS=LGTV_HOSTS \
+    -e MQTT_HOST=$MQTT_HOST \
     robodomo/$SERVICE
 

@@ -16,6 +16,6 @@ docker run \
     --restart always \
     --name $SERVICE \
     -e BRAVIA_HOSTS="$BRAVIA_HOSTS" \
-    -e MQTT_HOST=mqtt://ha \
+    -e MQTT_HOST=$MQTT_HOST\
     robodomo/$SERVICE
 

@@ -15,7 +15,7 @@ docker run \
     -d \
     --restart always \
     --name $SERVICE \
-    -e DENON_HOSTS="denon-s910w,denon-x2100w" \
-    -e MQTT_HOST=http://ha \
+    -e DENON_HOSTS=$DENON_HOSTS \
+    -e MQTT_HOST=$MQTT_HOST \
     robodomo/$SERVICE
 

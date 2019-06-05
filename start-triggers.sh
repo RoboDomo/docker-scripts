@@ -16,6 +16,6 @@ docker run \
     --restart always \
     --name $SERVICE \
     -e TIMEOUT=600000 \
-    -e MQTT_HOST=mqtt://ha \
+    -e MQTT_HOST=$MQTT_HOST\
     robodomo/$SERVICE
 

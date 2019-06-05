@@ -16,6 +16,6 @@ docker run \
     --net=host \
     --restart always \
     --name $SERVICE \
-    -e MQTT_HOST=mqtt://ha \
+    -e MQTT_HOST=$MQTT_HOST \
     robodomo/$SERVICE
 
