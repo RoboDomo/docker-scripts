@@ -1,6 +1,6 @@
 !/bin/bash
 
-docker stop weather-microservice
+docker stop here-microservice
 docker stop tvguide-microservice
 docker stop autelis-microservice
 docker stop tivo-microservice
