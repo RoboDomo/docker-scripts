@@ -5,7 +5,7 @@
 # You can set these in this script (uncomment and edit the lines) or set them in your .zshrc/.bashrc/etc.
 
 # Change this to an EXISTING directory on the HOST where the mongodb database files will be created and maintained.
-MONGO_DATADIR="~/data"
+MONGO_DATADIR="$HOME/data"
 
 #### /ENV VARS
 
@@ -30,6 +30,6 @@ docker run \
   --restart always \
   -e TITLE=$SERVICE \
   -p 27017:27017 \
-  -v $MONGO_DATADIR:/data/db \
+  -v "$MONGO_DATADIR":/data/db \
   mongo:3.4
 
