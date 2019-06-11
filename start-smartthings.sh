@@ -35,7 +35,7 @@ echo "starting new $SERVICE"
 docker run \
     -d \
     --restart always \
-    -v BRIDGE_CONFIG_LOCATION:/config \
+    -v $BRIDGE_CONFIG_LOCATION:/config \
     -p 8080:8080 \
     --name $SERVICE \
     -e TITLE=$SERVICE \
