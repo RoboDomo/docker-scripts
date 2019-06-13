@@ -9,7 +9,7 @@ MQTT_HOST="mqtt://robodomo"
 
 #### /ENV VARS
 
-SERVICE=autelis-microservice
+SERVICE=react-client
 
 echo "stopping $SERVICE"
 docker stop $SERVICE
@@ -22,8 +22,17 @@ docker pull robodomo/$SERVICE
 
 docker run \
     -d \
+    --net=host \
     --restart always \
     --name $SERVICE \
     -e TITLE=$SERVICE \
     robodomo/$SERVICE
+
+hn=`hostname`
+echo ""
+echo ""
+echo "Point your browser at:"
+echo "http://$hn:8000"
+echo ""
+echo ""
 
