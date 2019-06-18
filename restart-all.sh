@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/bin/bash
 
 docker restart nest-microservice
 docker restart harmony-microservice
