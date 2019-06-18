@@ -3,7 +3,6 @@
 ./start-mongodb.sh
 ./start-mqtt.sh
 ./start-here.sh
-#./start-weather.sh
 ./start-tvguide.sh
 ./start-autelis.sh
 ./start-tivo.sh
