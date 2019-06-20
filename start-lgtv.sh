@@ -34,6 +34,7 @@ docker run \
     -d \
     --net=host \
     --restart always \
+    -v /home/app/.local/robodomo \
     --name $SERVICE \
     -e LGTV_HOSTS=$LGTV_HOSTS \
     -e MQTT_HOST=$MQTT_HOST \
