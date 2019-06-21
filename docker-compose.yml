@@ -20,6 +20,8 @@ services:
   db:
     restart: always
     image: 'mongo:3.4'
+    environment:
+      - TITLE=mongodb-microservice
     volumes:
       - './data/db:/data/db'
 
@@ -113,6 +115,18 @@ services:
       - TVGUIDE_USERNAME=${TVGUIDE_USERNAME}
       - TVGUIDE_PASSWORD=${TVGUIDE_PASSWORD}
       - TVGUIDE_IDS=${TVGUIDE_IDS}
+
+  config:
+    <<: *defaults
+    image: 'robodomo/config-microservice'
+    environment:
+      - TITLE=config-microservice
+      - ROBODOMO_MONGODB=mongodb://db
+      - MQTT_HOST=mqtt://mqtt
+      - MQTT_DOMAIN=mqtt
+      - MQTT_PORT=80
+    volumes:
+      - ./config/robodomo:/home/app/config
 
 networks:
   default:
