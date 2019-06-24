@@ -28,8 +28,6 @@ services:
   mqtt:
     restart: always
     image: 'matteocollina/mosca'
-    depends_on:
-      - db
     ports:
       - '1883:1883'
       - '3030:3000'
