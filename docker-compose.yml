@@ -10,29 +10,31 @@
 
 x-defaults: &defaults
   restart: always
+  depends_on:
+    - mqtt
   volumes:
     - ./config:/config:ro
 
 version: '3.7'
 services:
   db:
-    <<: *defaults
+    restart: always
     image: 'mongo:3.4'
-    ports:
-      - '27017:27017'
+    environment:
+      - TITLE=mongodb-microservice
     volumes:
-      - '~/data:/data/db'
+      - './data/db:/data/db'
 
   mqtt:
-    <<: *defaults
+    restart: always
     image: 'matteocollina/mosca'
-    depends_on:
-      - db
     ports:
-      - '1883'
+      - '1883:1883'
       - '3030:3000'
-      - '9000'
+      - '9000:9000'
       - '3080:80'
+    volumes:
+      - ./data/mosca:/db
 
   weather:
     <<: *defaults
@@ -41,8 +43,6 @@ services:
   appletv:
     <<: *defaults
     image: 'robodomo/appletv-microservice'
-    depends_on:
-      - mqtt
     environment:
       - MQTT_HOST=mqtt://mqtt
 
@@ -50,7 +50,9 @@ services:
     <<: *defaults
     image: 'stjohnjohnson/smartthings-mqtt-bridge'
     ports:
-      - '8080'
+      - '8080:8080'
+    volumes:
+      - ./config/smartthings:/config
 
   macros:
     <<: *defaults
@@ -111,6 +113,18 @@ services:
       - TVGUIDE_USERNAME=${TVGUIDE_USERNAME}
       - TVGUIDE_PASSWORD=${TVGUIDE_PASSWORD}
       - TVGUIDE_IDS=${TVGUIDE_IDS}
+
+  config:
+    <<: *defaults
+    image: 'robodomo/config-microservice'
+    environment:
+      - TITLE=config-microservice
+      - ROBODOMO_MONGODB=mongodb://db
+      - MQTT_HOST=mqtt://mqtt
+      - MQTT_DOMAIN=mqtt
+      - MQTT_PORT=80
+    volumes:
+      - ./config/robodomo:/home/app/config
 
 networks:
   default:
