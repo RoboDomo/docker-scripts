@@ -119,6 +119,9 @@ services:
   config:
     <<: *defaults
     image: 'robodomo/config-microservice'
+    depends_on:
+      - mqtt
+      - db
     environment:
       - TITLE=config-microservice
       - ROBODOMO_MONGODB=mongodb://db
