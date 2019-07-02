@@ -19,6 +19,7 @@ sleep 2   # give config-microservice enough time to start up
 ./start-nest.sh
 ./start-macros.sh
 ./start-triggers.sh
+./start-collector.sh
 
 # THIS MUST BE LAST AND YOU PROBABLY WANT TO LEAVE IT AS-IS
 ./start-react-client.sh
