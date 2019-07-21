@@ -10,6 +10,11 @@ if [ "$MQTT_HOST" = "" ]; then
 fi
 
 
+# Change this to match your MONGODB hostname:
+if [ "$MONGO_URL" = "" ]; then
+  MONGO_URL="mongodb://mongodb"
+fi
+
 #### /ENV VARS
 
 SERVICE=autelis-microservice
@@ -28,5 +33,7 @@ docker run \
     --restart always \
     --name $SERVICE \
     -e TITLE=$SERVICE \
+    -e MQTT_HOST=$MQTT_HOST \
+    -e ROBODOMO_MONGODB=$MONGO_URL \
     robodomo/$SERVICE
 

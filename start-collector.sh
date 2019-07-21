@@ -37,5 +37,6 @@ docker run \
     -e TITLE=$SERVICE \
     -e MQTT_HOST=$MQTT_HOST \
     -e MONGO_URL=$MONGO_URL \
+    -e ROBODOMO_MONGODB=$MONGO_URL \
     robodomo/$SERVICE
 

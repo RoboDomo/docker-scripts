@@ -10,11 +10,9 @@ if [ "$MQTT_HOST" = "" ]; then
 fi
 
 # Change this to match your MONGODB hostname:
-echo $MONGO_URL
 if [ "$MONGO_URL" = "" ]; then
   MONGO_URL="mongodb://mongodb"
 fi
-echo $MONGO_URL
 
 #### /ENV VARS
 

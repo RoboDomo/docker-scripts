@@ -9,6 +9,11 @@ if [ "$MQTT_HOST" = "" ]; then
   MQTT_HOST="mqtt://mqtt"
 fi
 
+# Change this to match your MONGODB hostname:
+if [ "$MONGO_URL" = "" ]; then
+  MONGO_URL="mongodb://mongodb"
+fi
+
 # Set this to the number of milliseconds that the bathroom fans should remain on
 TIMEOUT=600000
 
@@ -32,6 +37,7 @@ docker run \
     --name $SERVICE \
     -e TIMEOUT=$TIMEOUT \
     -e MQTT_HOST=$MQTT_HOST \
+    -e ROBODOMO_MONGODB=$MONGO_URL \
     -e TITLE=$SERVICE \
     robodomo/$SERVICE
 

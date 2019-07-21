@@ -9,6 +9,11 @@ if [ "$MQTT_HOST" = "" ]; then
   MQTT_HOST="mqtt://mqtt"
 fi
 
+# Change this to match your MONGODB hostname:
+if [ "$MONGO_URL" = "" ]; then
+  MONGO_URL="mongodb://mongodb"
+fi
+
 # TV Guide information is provided by SchedulesDirect.com.  You will need to pay/subscribe to their service
 # (currently $25/year).  You will need to get the TV Guide ID(s) from which you want information available to
 # RoboDomo.  For example, you might have two homes, two different cable TV providers, etc.  
@@ -46,6 +51,7 @@ docker run \
     -e "TVGUIDE_PASSWORD=$TVGUIDE_PASSWORD" \
     -e "TVGUIDE_IDS=$TVGUIDE_IDS" \
     -e "MQTT_HOST=$MQTT_HOST" \
+    -e ROBODOMO_MONGODB=$MONGO_URL \
     -e TITLE=$SERVICE \
     --restart always \
     --name $SERVICE \

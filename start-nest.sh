@@ -9,6 +9,11 @@ if [ "$MQTT_HOST" = "" ]; then
   MQTT_HOST="mqtt://mqtt"
 fi
 
+# Change this to match your MONGODB hostname:
+if [ "$MONGO_URL" = "" ]; then
+  MONGO_URL="mongodb://mongodb"
+fi
+
 # Change this to be your Nest authorization key.  You get your key by creating an account at
 # https://developers.nest.com.  A howto for obtaining the key can be found here: 
 # https://www.digitalsanctuary.com/general/control-your-nest-thermostat-from-the-command-line.html.
@@ -45,6 +50,7 @@ docker run \
     --restart always \
     --name $SERVICE \
     -e MQTT_HOST=$MQTT_HOST \
+    -e ROBODOMO_MONGODB=$MONGO_URL \
     -e NEST_AUTH=$NEST_AUTH \
     -e TITLE=$SERVICE \
     robodomo/$SERVICE

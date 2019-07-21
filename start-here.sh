@@ -27,6 +27,11 @@ if [ "$MQTT_HOST" = "" ]; then
   MQTT_HOST="mqtt://mqtt"
 fi
 
+# Change this to match your MONGODB hostname:
+if [ "$MONGO_URL" = "" ]; then
+  MONGO_URL="mongodb://mongodb"
+fi
+
 #### /ENV VARS
 
 SERVICE=here-microservice
@@ -53,6 +58,7 @@ echo "starting new $SERVICE"
 docker run \
     -d \
     -e MQTT_HOST=$MQTT_HOST \
+    -e ROBODOMO_MONGODB=$MONGO_URL \
     -e WEATHER_LOCATIONS=$WEATHER_LOCATIONS \
     -e WEATHER_APP_ID=$WEATHER_APP_ID \
     -e WEATHER_APP_CODE=$WEATHER_APP_CODE \
