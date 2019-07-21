@@ -9,7 +9,9 @@
 # DENON_HOSTS=denon1,denon2,...
 
 # Change this to match your MQTT broker hostname:
-MQTT_HOST="mqtt://robodomo"
+if [ "$MQTT_HOST" = "" ]; then
+  MQTT_HOST="mqtt://mqtt"
+fi
 
 #### /ENV VARS
 

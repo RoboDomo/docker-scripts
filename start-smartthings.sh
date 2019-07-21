@@ -5,7 +5,9 @@
 # You can set these in this script (uncomment and edit the lines) or set them in your .zshrc/.bashrc/etc.
 
 # Change this to match your MQTT broker hostname:
-MQTT_HOST="mqtt://robodomo"
+if [ "$MQTT_HOST" = "" ]; then
+  MQTT_HOST="mqtt://mqtt"
+fi
 
 # The SmartThings-MQTT-Bridge reads its configuration from a yaml (.yml) file and creates log files and other state
 # files.  A good default location is /opt/mqtt-bridge, but you can use any directory you choose.  You should copy the
@@ -38,6 +40,7 @@ docker run \
     -v $BRIDGE_CONFIG_LOCATION:/config \
     -p 8080:8080 \
     --name $SERVICE \
+    -e MQTT_HOST=$MQTT_HOST \
     -e TITLE=$SERVICE \
     stjohnjohnson/smartthings-mqtt-bridge
 

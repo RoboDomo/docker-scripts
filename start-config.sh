@@ -5,7 +5,16 @@
 # You can set these in this script (uncomment and edit the lines) or set them in your .zshrc/.bashrc/etc.
 
 # Change this to match your MQTT broker hostname:
-MQTT_HOST="mqtt://robodomo"
+if [ "$MQTT_HOST" = "" ]; then
+  MQTT_HOST="mqtt://mqtt"
+fi
+
+# Change this to match your MONGODB hostname:
+echo $MONGO_URL
+if [ "$MONGO_URL" = "" ]; then
+  MONGO_URL="mongodb://mongodb"
+fi
+echo $MONGO_URL
 
 #### /ENV VARS
 
@@ -27,6 +36,9 @@ docker run \
     -v /home/app/node_modules \
     --restart always \
     --name $SERVICE \
+    -e MQTT_HOST=$MQTT_HOST \
+    -e MONGO_URL=$MONGO_URL \
+    -e ROBODOMO_MONGODB=$MONGO_URL \
     -e TITLE=$SERVICE \
     robodomo/$SERVICE
 

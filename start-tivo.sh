@@ -9,7 +9,9 @@
 # TIVO_HOSTS=bolt1,mini1,mini2,...
 
 # Change this to match your MQTT broker hostname:
-MQTT_HOST="mqtt://robodomo"
+if [ "$MQTT_HOST" = "" ]; then
+  MQTT_HOST="mqtt://mqtt"
+fi
 
 #### /ENV VARS
 
@@ -33,6 +35,7 @@ echo "starting new $SERVICE"
 docker run \
     -d \
     -e TIVO_HOSTS="$TIVO_HOSTS" \
+    -e MQTT_HOST=$MQTT_HOST \
     -e TITLE=$SERVICE \
     --restart always \
     --name $SERVICE \

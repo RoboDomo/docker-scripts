@@ -1,7 +1,7 @@
 #!/bin/bash
 
-./start-mongodb.sh
-./start-mqtt.sh
+#./start-mongodb.sh
+#./start-mqtt.sh
 ./start-config.sh
 
 sleep 2   # give config-microservice enough time to start up

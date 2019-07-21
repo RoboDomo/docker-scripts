@@ -5,7 +5,9 @@
 # You can set these in this script (uncomment and edit the lines) or set them in your .zshrc/.bashrc/etc.
 
 # Change this to match your MQTT broker hostname:
-MQTT_HOST="mqtt://robodomo"
+if [ "$MQTT_HOST" = "" ]; then
+  MQTT_HOST="mqtt://mqtt"
+fi
 
 # TV Guide information is provided by SchedulesDirect.com.  You will need to pay/subscribe to their service
 # (currently $25/year).  You will need to get the TV Guide ID(s) from which you want information available to
@@ -43,6 +45,7 @@ docker run \
     -e "TVGUIDE_USERNAME=$TVGUIDE_USERNAME" \
     -e "TVGUIDE_PASSWORD=$TVGUIDE_PASSWORD" \
     -e "TVGUIDE_IDS=$TVGUIDE_IDS" \
+    -e "MQTT_HOST=$MQTT_HOST" \
     -e TITLE=$SERVICE \
     --restart always \
     --name $SERVICE \
