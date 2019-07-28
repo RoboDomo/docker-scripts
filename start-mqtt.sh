@@ -18,6 +18,7 @@ docker run \
   --name $SERVICE \
   -d \
   --restart always \
+  --net=host \
   -e TITLE=$SERVICE \
   -p 1883:1883 \
   -p 3000:3000 \
