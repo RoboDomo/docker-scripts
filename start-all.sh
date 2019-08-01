@@ -13,6 +13,7 @@ sleep 2   # give config-microservice enough time to start up
 ./start-denon.sh
 ./start-harmony.sh
 ./start-smartthings.sh
+./start-hubitat.sh
 ./start-bravia.sh
 ./start-lgtv.sh
 ./start-appletv.sh

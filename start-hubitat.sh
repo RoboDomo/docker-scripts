@@ -4,10 +4,6 @@
 
 # You can set these in this script (uncomment and edit the lines) or set them in your .zshrc/.bashrc/etc.
 
-# Set this to a comma separated list of Sony/Bravia TV hostnames/IP addresses that are to be controlled by
-# this microservice
-# LGTV_HOSTS=tv1,tv2,...
-
 # Change this to match your MQTT broker hostname:
 if [ "$MQTT_HOST" = "" ]; then
   MQTT_HOST="mqtt://mqtt"
@@ -18,15 +14,26 @@ if [ "$MONGO_URL" = "" ]; then
   MONGO_URL="mongodb://mongodb"
 fi
 
-
-#### /ENV VARS
-
-if [[ "$LGTV_HOSTS" == "" ]]; then
-  echo "ENV variable LGTV_HOSTS is required but is not set.  See start-lgtv.sh for more details"
+# HUBITAT_HUB is the hostname of your HUBITAT_HUB, typically "hubitat"
+if [ "$HUBITAT_HUB" = "" ]; then
+  echo "HUBITAT_HUB ENV variable is not set"
   exit 1
 fi
+ 
+# You must enable the MAKER API on your hubitat hub and enable the devices for control.  On the settings page,
+# the access_token is displayed.  This is the value you need to set HUBITAT_TOKEN ENV variable.
+if [ "$HUBITAT_TOKEN" = "" ]; then
+  echo "HUBITAT_TOKEN ENV variable is not set"
+  exit 1
+fi
+  
+#### /ENV VARS
 
-SERVICE=lgtv-microservice
+SERVICE=hubitat-microservice
+
+DEBUG="hubitat"
+#DEBUG="HostBase,hubitat" \
+
 
 echo "stopping $SERVICE"
 docker stop $SERVICE
@@ -42,11 +49,11 @@ docker run \
     -d \
     --net=host \
     --restart always \
-    -v ~/.lgtv2:/home/app/.lgtv2 \
     --name $SERVICE \
-    -e LGTV_HOSTS=$LGTV_HOSTS \
+    -e DEBUG="$DEBUG" \
     -e MQTT_HOST=$MQTT_HOST \
-    -e ROBODOMO_MONGODB=$MONGO_URL \
+    -e HUBITAT_HUB=$HUBITAT_HUB \
+    -e HUBITAT_TOKEN=$HUBITAT_TOKEN \
     -e TITLE=$SERVICE \
     robodomo/$SERVICE
 
