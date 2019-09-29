@@ -15,7 +15,7 @@ docker run \
   --name $SERVICE \
   -d \
   --restart always \
-  -p 27017:27117 \
+  -p 27017:27017 \
   -v ~/data:/data/db \
   mongo:3.4
 
