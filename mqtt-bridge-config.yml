@@ -1,7 +1,11 @@
 ---
 mqtt:
     # Specify your MQTT Broker's hostname or IP address here
-    host: ha
+    host: robodomo
+
+    # Example from CloudMQTT (includes a host and port number)
+    # host: mqtt//m10.cloudmqtt.com:19427
+
     # Preface for the topics $PREFACE/$DEVICE_NAME/$PROPERTY
     preface: smartthings
 

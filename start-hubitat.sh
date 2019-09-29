@@ -14,9 +14,26 @@ if [ "$MONGO_URL" = "" ]; then
   MONGO_URL="mongodb://mongodb"
 fi
 
+# HUBITAT_HUB is the hostname of your HUBITAT_HUB, typically "hubitat"
+if [ "$HUBITAT_HUB" = "" ]; then
+  echo "HUBITAT_HUB ENV variable is not set"
+  exit 1
+fi
+ 
+# You must enable the MAKER API on your hubitat hub and enable the devices for control.  On the settings page,
+# the access_token is displayed.  This is the value you need to set HUBITAT_TOKEN ENV variable.
+if [ "$HUBITAT_TOKEN" = "" ]; then
+  echo "HUBITAT_TOKEN ENV variable is not set"
+  exit 1
+fi
+  
 #### /ENV VARS
 
-SERVICE=appletv-microservice
+SERVICE=hubitat-microservice
+
+DEBUG="hubitat"
+#DEBUG="HostBase,hubitat" \
+
 
 echo "stopping $SERVICE"
 docker stop $SERVICE
@@ -33,8 +50,10 @@ docker run \
     --net=host \
     --restart always \
     --name $SERVICE \
+    -e DEBUG="$DEBUG" \
     -e MQTT_HOST=$MQTT_HOST \
-    -e ROBODOMO_MONGODB=$MONGO_URL \
+    -e HUBITAT_HUB=$HUBITAT_HUB \
+    -e HUBITAT_TOKEN=$HUBITAT_TOKEN \
     -e TITLE=$SERVICE \
     robodomo/$SERVICE
 

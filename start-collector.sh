@@ -16,7 +16,7 @@ fi
 
 #### /ENV VARS
 
-SERVICE=appletv-microservice
+SERVICE=collector-microservice
 
 echo "stopping $SERVICE"
 docker stop $SERVICE
@@ -30,11 +30,13 @@ docker pull robodomo/$SERVICE
 echo "starting new $SERVICE"
 docker run \
     -d \
-    --net=host \
+    -v $PWD/config:/home/app/config \
+    -v /home/app/node_modules \
     --restart always \
     --name $SERVICE \
-    -e MQTT_HOST=$MQTT_HOST \
-    -e ROBODOMO_MONGODB=$MONGO_URL \
     -e TITLE=$SERVICE \
+    -e MQTT_HOST=$MQTT_HOST \
+    -e MONGO_URL=$MONGO_URL \
+    -e ROBODOMO_MONGODB=$MONGO_URL \
     robodomo/$SERVICE
 

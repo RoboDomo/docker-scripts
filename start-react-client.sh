@@ -9,32 +9,32 @@ if [ "$MQTT_HOST" = "" ]; then
   MQTT_HOST="mqtt://mqtt"
 fi
 
-# Change this to match your MONGODB hostname:
-if [ "$MONGO_URL" = "" ]; then
-  MONGO_URL="mongodb://mongodb"
-fi
-
 #### /ENV VARS
 
-SERVICE=appletv-microservice
+SERVICE=react-client
 
 echo "stopping $SERVICE"
 docker stop $SERVICE
 
-echo "removing old $SERVICE"
+echo "removing $SERVICE"
 docker rm $SERVICE
 
-echo "pulling $SERVICE"
+echo "pulling RoboDomo/$SERVICE"
 docker pull robodomo/$SERVICE
 
-echo "starting new $SERVICE"
 docker run \
     -d \
     --net=host \
     --restart always \
     --name $SERVICE \
-    -e MQTT_HOST=$MQTT_HOST \
-    -e ROBODOMO_MONGODB=$MONGO_URL \
     -e TITLE=$SERVICE \
     robodomo/$SERVICE
+
+hn=`hostname`
+echo ""
+echo ""
+echo "Point your browser at:"
+echo "http://$hn:8000"
+echo ""
+echo ""
 
