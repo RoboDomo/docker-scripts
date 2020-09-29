@@ -50,6 +50,7 @@ docker run \
     --net=host \
     --restart always \
     --name $SERVICE \
+    --expose 4000 \
     -e DEBUG="$DEBUG" \
     -e MQTT_HOST=$MQTT_HOST \
     -e HUBITAT_HUB=$HUBITAT_HUB \
