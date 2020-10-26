@@ -27,8 +27,20 @@ fi
 
 ### /ENV VARS
 
-if [[ "$ICOMFORT_AUTH" == "" ]]; then
-  echo "NEST_AUTH environment variable is required.  See start-nest.sh for more details."
+if [[ "$LENNOX_USER" == "" ]]; then
+  echo "LENNOX_USER environment variable is required.  See start-icomfort.sh for more details."
+  exit 1
+fi
+if [[ "$LENNOX_PASSWORD" == "" ]]; then
+  echo "LENNOX_PASSWORD environment variable is required.  See start-icomfort.sh for more details."
+  exit 1
+fi
+if [[ "$LENNOX_HOMEID" == "" ]]; then
+  echo "LENNOX_HOMEID environment variable is required.  See start-icomfort.sh for more details."
+  exit 1
+fi
+if [[ "$LENNOX_LCCID" == "" ]]; then
+  echo "LENNOX_LCCID environment variable is required.  See start-icomfort.sh for more details."
   exit 1
 fi
 
