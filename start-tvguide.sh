@@ -47,13 +47,14 @@ docker pull robodomo/$SERVICE
 echo "starting new $SERVICE"
 docker run \
     -d \
+    --log-opt max-size=10m --log-opt max-file=5 \
+    --restart always \
     -e "TVGUIDE_USERNAME=$TVGUIDE_USERNAME" \
     -e "TVGUIDE_PASSWORD=$TVGUIDE_PASSWORD" \
     -e "TVGUIDE_IDS=$TVGUIDE_IDS" \
     -e "MQTT_HOST=$MQTT_HOST" \
     -e ROBODOMO_MONGODB=$MONGO_URL \
     -e TITLE=$SERVICE \
-    --restart always \
     --name $SERVICE \
     robodomo/$SERVICE
 

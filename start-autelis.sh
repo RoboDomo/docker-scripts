@@ -30,6 +30,7 @@ docker pull robodomo/$SERVICE
 
 docker run \
     -d \
+    --log-opt max-size=10m --log-opt max-file=5 \
     --restart always \
     --name $SERVICE \
     -e TITLE=$SERVICE \

@@ -4,9 +4,9 @@
 
 # You can set these in this script (uncomment and edit the lines) or set them in your .zshrc/.bashrc/etc.
 
-# Set this to a comma separated list of TiVo hostnames/IP addresses that are to be controlled by
+# Set this to a comma separated list of AVR hostnames/IP addresses that are to be controlled by
 # this microservice
-# TIVO_HOSTS=bolt1,mini1,mini2,...
+# MYQ_HOSTS=myq1,myq2,...
 
 # Change this to match your MQTT broker hostname:
 if [ "$MQTT_HOST" = "" ]; then
@@ -20,12 +20,7 @@ fi
 
 #### /ENV VARS
 
-if [[ "$TIVO_HOSTS" == "" ]]; then
-  echo "ENV variable TIVO_HOSTS is required but is not set.  See start-tivo.sh for more details"
-  exit 1
-fi
-
-SERVICE=tivo-microservice
+SERVICE=myq-microservice
 
 echo "stopping $SERVICE"
 docker stop $SERVICE
@@ -39,12 +34,12 @@ docker pull robodomo/$SERVICE
 echo "starting new $SERVICE"
 docker run \
     -d \
-    --log-opt max-size=10m --log-opt max-file=5 \
     --restart always \
-    -e TIVO_HOSTS="$TIVO_HOSTS" \
+    --name $SERVICE \
     -e MQTT_HOST=$MQTT_HOST \
+    -e MYQ_EMAIL=$MYQ_EMAIL \
+    -e MYQ_PASSWORD=$MYQ_PASSWORD \
     -e ROBODOMO_MONGODB=$MONGO_URL \
     -e TITLE=$SERVICE \
-    --name $SERVICE \
     robodomo/$SERVICE
 

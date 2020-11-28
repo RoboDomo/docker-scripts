@@ -17,6 +17,7 @@ docker pull matteocollina/$SERVICE
 docker run \
   --name $SERVICE \
   -d \
+  --log-opt max-size=10m --log-opt max-file=5 \
   --restart always \
   --net=host \
   -e TITLE=$SERVICE \

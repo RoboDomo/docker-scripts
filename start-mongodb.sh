@@ -27,6 +27,7 @@ docker pull mongo:3.4
 docker run \
   --name $SERVICE \
   -d \
+  --log-opt max-size=10m --log-opt max-file=5 \
   --restart always \
   -p 27017:27017 \
   -v ~/data:/data/db \

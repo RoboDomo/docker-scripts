@@ -18,6 +18,7 @@ docker pull robodomo/$SERVICE
 echo "starting new $SERVICE"
 docker run \
     -d \
+    --log-opt max-size=10m --log-opt max-file=5 \
     -e WEATHER_LOCATIONS="92211,92109,92203" \
     --restart always \
     --name $SERVICE \

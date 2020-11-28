@@ -30,6 +30,7 @@ docker pull robodomo/$SERVICE
 echo "starting new $SERVICE"
 docker run \
     -d \
+    --log-opt max-size=10m --log-opt max-file=5 \
     -v $PWD/config:/home/app/config \
     -v /home/app/node_modules \
     --restart always \

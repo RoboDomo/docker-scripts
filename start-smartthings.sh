@@ -36,6 +36,7 @@ docker pull stjohnjohnson/smartthings-mqtt-bridge
 echo "starting new $SERVICE"
 docker run \
     -d \
+    --log-opt max-size=10m --log-opt max-file=5 \
     --restart always \
     -v $BRIDGE_CONFIG_LOCATION:/config \
     -p 8080:8080 \
