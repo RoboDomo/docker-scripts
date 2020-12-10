@@ -40,6 +40,7 @@ docker run \
     --restart always \
     --name $SERVICE \
     --expose 4000 \
+    -v /var/run/docker.sock:/var/run/docker.sock \
     -e DEBUG="$DEBUG" \
     -e MQTT_HOST=$MQTT_HOST \
     -e TITLE=$SERVICE \
