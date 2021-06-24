@@ -34,6 +34,7 @@ docker pull robodomo/$SERVICE
 echo "starting new $SERVICE"
 docker run \
     -d \
+    --net=host \
     --restart always \
     --name $SERVICE \
     -e MQTT_HOST=$MQTT_HOST \
