@@ -10,5 +10,5 @@ fi
 
 stop
 pull
-run --net=host -e LGTV_HOSTS=$LGTV_HOSTS -v ~/.lgtv2:/home/app/.lgtv2 
+start --net=host -e LGTV_HOSTS=$LGTV_HOSTS -v $HOME/.lgtv2:/home/app/.lgtv2 
 
