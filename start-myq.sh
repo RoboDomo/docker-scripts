@@ -34,7 +34,7 @@ docker pull robodomo/$SERVICE
 echo "starting new $SERVICE"
 docker run \
     -d \
-    --restart always \
+    --restart unless-stopped \
     --name $SERVICE \
     -e MQTT_HOST=$MQTT_HOST \
     -e MYQ_EMAIL=$MYQ_EMAIL \

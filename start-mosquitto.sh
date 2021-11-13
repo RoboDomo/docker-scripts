@@ -1,6 +1,6 @@
-#!/bin/bash
+#!/bin/sh
 
-SERVICE=mosca
+SERVICE=eclipse-mosquitto
 
 echo "stopping $SERVICE"
 docker stop $SERVICE
@@ -9,7 +9,7 @@ echo "removing old $SERVICE"
 docker rm $SERVICE
 
 echo "pulling $SERVICE"
-docker pull matteocollina/$SERVICE
+docker pull $SERVICE
 
 # TODO figure out what ports 3000 and 9000 are open here for.
 # 1883 is the standard MQTT port
@@ -17,13 +17,12 @@ docker pull matteocollina/$SERVICE
 docker run \
   --name $SERVICE \
   -d \
-  --log-opt max-size=10m --log-opt max-file=5 \
-  --restart unless-stopped \
-  --net=host \
-  -e TITLE=$SERVICE \
   -p 1883:1883 \
-  -p 3000:3000 \
-  -p 9000:9000 \
+  -p 8083:8083 \
   -p 80:80 \
-  -v /var/db/mosca:/db \
-  matteocollina/mosca
+  --restart unless-stopped \
+  -e TITLE=$SERVICE \
+  -v $HOME/.mosquitto:/mosquitto \
+  -v $HOME/.mosquitto/config/mosquitto.conf:/mosquitto/config/mosquitto.conf \
+  eclipse-mosquitto
+

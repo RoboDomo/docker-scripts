@@ -28,7 +28,7 @@ docker run \
   --name $SERVICE \
   -d \
   --log-opt max-size=10m --log-opt max-file=5 \
-  --restart always \
+  --restart unless-stopped \
   -p 27017:27017 \
   -v ~/data:/data/db \
   mongo:3.4

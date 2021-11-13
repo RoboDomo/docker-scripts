@@ -35,7 +35,7 @@ echo "starting new $SERVICE"
 docker run \
     -d \
     --log-opt max-size=10m --log-opt max-file=5 \
-    --restart always \
+    --restart unless-stopped \
     -e MQTT_HOST=$MQTT_HOST \
     -e MONGO_URL="mongodb://nuc1" \
     -e TITLE=$SERVICE \

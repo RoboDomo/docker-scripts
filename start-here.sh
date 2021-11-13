@@ -64,7 +64,7 @@ docker run \
     -e WEATHER_APP_ID=$WEATHER_APP_ID \
     -e WEATHER_APP_CODE=$WEATHER_APP_CODE \
     -e TITLE=$SERVICE \
-    --restart always \
+    --restart unless-stopped \
     --name $SERVICE \
     robodomo/$SERVICE
 

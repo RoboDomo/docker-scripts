@@ -9,7 +9,7 @@
 #   TIVO_HOSTS - Hostnames of Tivo devices
 
 x-defaults: &defaults
-  restart: always
+  restart: unless-stopped
   depends_on:
     - mqtt
   volumes:
@@ -18,7 +18,7 @@ x-defaults: &defaults
 version: '3.7'
 services:
   db:
-    restart: always
+    restart: unless-stopped
     image: 'mongo:3.4'
     environment:
       - TITLE=mongodb-microservice
@@ -26,7 +26,7 @@ services:
       - './data/db:/data/db'
 
   mqtt:
-    restart: always
+    restart: unless-stopped
     image: 'matteocollina/mosca'
     depends_on:
       - db

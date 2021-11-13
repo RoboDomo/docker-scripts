@@ -34,7 +34,7 @@ echo "starting new $SERVICE"
 docker run \
     -d \
     --log-opt max-size=10m --log-opt max-file=5 \
-    --restart always \
+    --restart unless-stopped \
     --name $SERVICE \
     -e TIMEOUT=$TIMEOUT \
     -e MQTT_HOST=$MQTT_HOST \

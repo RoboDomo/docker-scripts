@@ -48,7 +48,7 @@ echo "starting new $SERVICE"
 docker run \
     -d \
     --log-opt max-size=10m --log-opt max-file=5 \
-    --restart always \
+    --restart unless-stopped \
     -e "TVGUIDE_USERNAME=$TVGUIDE_USERNAME" \
     -e "TVGUIDE_PASSWORD=$TVGUIDE_PASSWORD" \
     -e "TVGUIDE_IDS=$TVGUIDE_IDS" \

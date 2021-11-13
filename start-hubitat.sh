@@ -49,7 +49,7 @@ docker run \
     -d \
     --log-opt max-size=10m --log-opt max-file=5 \
     --net=host \
-    --restart always \
+    --restart unless-stopped \
     --name $SERVICE \
     --expose 4000 \
     -e DEBUG="$DEBUG" \

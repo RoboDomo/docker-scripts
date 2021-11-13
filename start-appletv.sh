@@ -32,7 +32,7 @@ docker run \
     -d \
     --log-opt max-size=10m --log-opt max-file=5 \
     --net=host \
-    --restart always \
+    --restart unless-stopped \
     --name $SERVICE \
     -e MQTT_HOST=$MQTT_HOST \
     -e ROBODOMO_MONGODB=$MONGO_URL \

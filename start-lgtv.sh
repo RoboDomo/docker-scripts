@@ -42,7 +42,7 @@ docker run \
     -d \
     --log-opt max-size=10m --log-opt max-file=5 \
     --net=host \
-    --restart always \
+    --restart unless-stopped \
     -v ~/.lgtv2:/home/app/.lgtv2 \
     --name $SERVICE \
     -e LGTV_HOSTS=$LGTV_HOSTS \

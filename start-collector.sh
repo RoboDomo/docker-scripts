@@ -33,7 +33,7 @@ docker run \
     --log-opt max-size=10m --log-opt max-file=5 \
     -v $PWD/config:/home/app/config \
     -v /home/app/node_modules \
-    --restart always \
+    --restart unless-stopped \
     --name $SERVICE \
     -e TITLE=$SERVICE \
     -e MQTT_HOST=$MQTT_HOST \
