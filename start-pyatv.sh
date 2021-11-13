@@ -5,5 +5,5 @@ SERVICE=pyatv-microservice
 
 stop
 pull
-start --net=host
+start --net=host -e MQTT_HOSTNAME=$MQTT_HOSTNAME -e MONGO_HOST=$MONGO_HOST
 
