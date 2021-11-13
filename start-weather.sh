@@ -1,6 +1,6 @@
 #!/bin/bash
 
-echo "This service (weather-microservice) is deprecated since Google is ending its works with nest API."j
+echo "This service (weather-microservice) is deprecated since Google is ending its works with nest API."
 echo "Use here.com-miroservice instead!"
 exit 1
 

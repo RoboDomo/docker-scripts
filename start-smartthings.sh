@@ -1,13 +1,11 @@
 #!/bin/bash
 
+SERVICE=mqtt-bridge
+. ./lib/common.sh
+
 #### ENV VARS
 
 # You can set these in this script (uncomment and edit the lines) or set them in your .zshrc/.bashrc/etc.
-
-# Change this to match your MQTT broker hostname:
-if [ "$MQTT_HOST" = "" ]; then
-  MQTT_HOST="mqtt://mqtt"
-fi
 
 # The SmartThings-MQTT-Bridge reads its configuration from a yaml (.yml) file and creates log files and other state
 # files.  A good default location is /opt/mqtt-bridge, but you can use any directory you choose.  You should copy the
@@ -21,8 +19,6 @@ if [[ "$BRIDGE_CONFIG_LOCATION" == "" ]]; then
   echo "The BRIDGE_CONFIG_LOCATION environment variable is required but not set.  See start-smartthings.sh for details."
   exit 1
 fi
-
-SERVICE=mqtt-bridge
 
 echo "stopping $SERVICE"
 docker stop $SERVICE

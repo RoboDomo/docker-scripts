@@ -24,7 +24,7 @@ services[pyatv-microservice]=robodomo
 services[react-client]=DISABLED
 services[ring-microservice]=robodomo
 services[samsung-microservice]=robodomo
-services[smartthings-microservice]=robodomo
+services[mqtt-bridge]=robodomo
 services[sysinfo-microservice]=ALL
 services[tivo-microservice]=DISABLED
 services[triggers-microservice]=nuc1
@@ -39,7 +39,7 @@ if [[ $service_host == 'ALL' ]]; then
 fi
 
 if [ $service_host == "" ] || [ $service_host == "DISABLED" ]; then
-  echo "*** Serice $SERVICE is DISABLED, stopping..."
+  echo "*** Service $SERVICE is DISABLED, stopping..."
   docker stop $SERVICE >/dev/null 2>&1 && docker rm -f $SERVICE >/dev/null 2>&1
   exit 0
 fi
@@ -48,7 +48,7 @@ if [[ "$service_host" == "$HOSTNAME" ]]; then
   return
 fi
 
-echo "*** Service should run on host" $service_host "stopping..."
+echo "*** Service $SERVICE should run on host" $service_host "stopping..."
 docker stop $SERVICE >/dev/null 2>&1 && docker rm -f $SERVICE >/dev/null 2>&1
 exit 0
 
