@@ -1,5 +1,8 @@
 #!/bin/bash
 
+SERVICE=here-microservice
+. ./lib/common.sh
+
 #### ENV VARS
 
 # You can set these in this script (uncomment and edit the lines) or set them in your .zshrc/.bashrc/etc.
@@ -22,19 +25,7 @@
 # to assure you stay below the number API requests allowed for the free tier at here.com (currently 250,000 per month).
 WEATHER_POLL_TIME=300
 
-# Change this to match your MQTT broker hostname:
-if [ "$MQTT_HOST" = "" ]; then
-  MQTT_HOST="mqtt://mqtt"
-fi
-
-# Change this to match your MONGODB hostname:
-if [ "$MONGO_URL" = "" ]; then
-  MONGO_URL="mongodb://mongodb"
-fi
-
 #### /ENV VARS
-
-SERVICE=here-microservice
 
 if [[ "$WEATHER_LOCATIONS" == "" ]]; then
   echo "*** Error: WEATHER_LOCATIONS ENV variable not set.  Edit start-here.sh script for more details."
@@ -45,26 +36,7 @@ if [[ "$WEATHER_APP_ID" == "" || "$WEATHER_APP_CODE" == "" ]]; then
   exit 1
 fi
 
-echo "stopping $SERVICE"
-docker stop $SERVICE
-
-echo "removing old $SERVICE"
-docker rm $SERVICE
-
-echo "pulling $SERVICE"
-docker pull robodomo/$SERVICE
-
-echo "starting new $SERVICE"
-docker run \
-    -d \
-    --log-opt max-size=10m --log-opt max-file=5 \
-    -e MQTT_HOST=$MQTT_HOST \
-    -e ROBODOMO_MONGODB=$MONGO_URL \
-    -e WEATHER_LOCATIONS=$WEATHER_LOCATIONS \
-    -e WEATHER_APP_ID=$WEATHER_APP_ID \
-    -e WEATHER_APP_CODE=$WEATHER_APP_CODE \
-    -e TITLE=$SERVICE \
-    --restart unless-stopped \
-    --name $SERVICE \
-    robodomo/$SERVICE
+stop
+pull
+start -e WEATHER_LOCATIONS=$WEATHER_LOCATIONS -e WEATHER_APP_ID=$WEATHER_APP_ID -e WEATHER_APP_CODE=$WEATHER_APP_CODE
 

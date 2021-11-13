@@ -1,18 +1,11 @@
 #!/bin/bash
 
+SERVICE=tvguide-microservice
+. ./lib/common.sh
+
 #### ENV VARS
 
 # You can set these in this script (uncomment and edit the lines) or set them in your .zshrc/.bashrc/etc.
-
-# Change this to match your MQTT broker hostname:
-if [ "$MQTT_HOST" = "" ]; then
-  MQTT_HOST="mqtt://mqtt"
-fi
-
-# Change this to match your MONGODB hostname:
-if [ "$MONGO_URL" = "" ]; then
-  MONGO_URL="mongodb://mongodb"
-fi
 
 # TV Guide information is provided by SchedulesDirect.com.  You will need to pay/subscribe to their service
 # (currently $25/year).  You will need to get the TV Guide ID(s) from which you want information available to
@@ -33,28 +26,7 @@ if [[ "$TVGUIDE_USERNAME" == "" || "$TVGUIDE_PASSWORD" == "" || "$TVGUIDE_IDS" =
   exit 1
 fi
 
-SERVICE=tvguide-microservice
-
-echo "stopping $SERVICE"
-docker stop $SERVICE
-
-echo "removing old $SERVICE"
-docker rm $SERVICE
-
-echo "pulling $SERVICE"
-docker pull robodomo/$SERVICE
-
-echo "starting new $SERVICE"
-docker run \
-    -d \
-    --log-opt max-size=10m --log-opt max-file=5 \
-    --restart unless-stopped \
-    -e "TVGUIDE_USERNAME=$TVGUIDE_USERNAME" \
-    -e "TVGUIDE_PASSWORD=$TVGUIDE_PASSWORD" \
-    -e "TVGUIDE_IDS=$TVGUIDE_IDS" \
-    -e "MQTT_HOST=$MQTT_HOST" \
-    -e ROBODOMO_MONGODB=$MONGO_URL \
-    -e TITLE=$SERVICE \
-    --name $SERVICE \
-    robodomo/$SERVICE
+stop
+pull
+start -e "TVGUIDE_USERNAME=$TVGUIDE_USERNAME" -e "TVGUIDE_PASSWORD=$TVGUIDE_PASSWORD" -e "TVGUIDE_IDS=$TVGUIDE_IDS"
 

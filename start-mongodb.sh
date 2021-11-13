@@ -1,5 +1,8 @@
 #!/bin/bash
 
+SERVICE=mongodb
+. ./lib/common.sh
+
 #### ENV VARS
 
 # You can set these in this script (uncomment and edit the lines) or set them in your .zshrc/.bashrc/etc.
@@ -13,7 +16,6 @@ if [[ "$MONGO_DATADIR" == "" ]]; then
   echo "The MONGO_DATADIR environment variable must be set.  See start-mongodb.sh for details."
 fi
 
-SERVICE=mongodb
 
 echo "stopping $SERVICE"
 docker stop $SERVICE
@@ -24,12 +26,5 @@ docker rm $SERVICE
 echo "pulling $SERVICE"
 docker pull mongo:3.4
 
-docker run \
-  --name $SERVICE \
-  -d \
-  --log-opt max-size=10m --log-opt max-file=5 \
-  --restart unless-stopped \
-  -p 27017:27017 \
-  -v ~/data:/data/db \
-  mongo:3.4
+docker run $docker_parameters -p 27017:27017 -v ~/data:/data/db mongo:3.4
 
