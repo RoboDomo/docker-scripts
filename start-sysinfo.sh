@@ -10,7 +10,7 @@ DEBUG="sysinfo"
 
 stop
 pull
-start -e DEBUG="$DEBUG" 
+start -e HOSTNAME=`hostname` -e DEBUG="$DEBUG" 
 
 #docker run \
 #    -d \
